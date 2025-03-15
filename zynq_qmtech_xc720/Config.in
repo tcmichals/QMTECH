@@ -1,0 +1,2 @@
+source "$BR2_EXTERNAL_zynq_qmtech_xc720_PATH/package/cpptest/Config.in"
+source "$BR2_EXTERNAL_zynq_qmtech_xc720_PATH/package/libmetal/Config.in"
