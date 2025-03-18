@@ -1,0 +1,84 @@
+diff -urpN a/arch/arm/boot/dts/xilinx/Makefile b/arch/arm/boot/dts/xilinx/Makefile
+--- a/arch/arm/boot/dts/xilinx/Makefile	2024-10-29 06:50:25.000000000 -0500
++++ b/arch/arm/boot/dts/xilinx/Makefile	2025-02-23 10:50:48.447581821 -0600
+@@ -14,4 +14,5 @@ dtb-$(CONFIG_ARCH_ZYNQ) += \
+ 	zynq-zturn.dtb \
+ 	zynq-zturn-v5.dtb \
+ 	zynq-zybo.dtb \
++	zynq-qmtech-xc720.dtb \
+ 	zynq-zybo-z7.dtb
+diff -urpN a/arch/arm/boot/dts/xilinx/zynq-qmtech-xc720.dts b/arch/arm/boot/dts/xilinx/zynq-qmtech-xc720.dts
+--- a/arch/arm/boot/dts/xilinx/zynq-qmtech-xc720.dts	1969-12-31 18:00:00.000000000 -0600
++++ b/arch/arm/boot/dts/xilinx/zynq-qmtech-xc720.dts	2025-02-23 10:51:32.664048891 -0600
+@@ -0,0 +1,70 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ *  Copyright (C) 2011 - 2015 Xilinx
++ *  Copyright (C) 2012 National Instruments Corp.
++ */
++/dts-v1/;
++#include "zynq-7000.dtsi"
++
++/ {
++	model = "QMTECH z20 board";
++	compatible = "qmtech,zynq-qmtech", "xlnx,zynq-qmtech", "xlnx,zynq-7000";
++
++	aliases {
++		ethernet0 = &gem0;
++		serial0 = &uart0;
++		mmc0 = &sdhci0;
++	};
++
++	memory@0 {
++		device_type = "memory";
++		reg = <0x0 0x20000000>;
++	};
++
++	chosen {
++		bootargs = "";
++		stdout-path = "serial0:115200n8";
++	};
++
++	usb_phy0: phy0@e0002000 {
++		compatible = "usb-nop-xceiv";
++		#phy-cells = <0>;
++		reg = <0xe0002000 0x1000>;
++		view-port = <0x0170>;
++		drv-vbus;
++		phy_type = "ulpi";
++	};
++};
++
++&clkc {
++	ps-clk-frequency = <33333333>;
++};
++
++&gem0 {
++	status = "okay";
++	phy-mode = "rgmii-id";
++	phy-handle = <&ethernet_phy>;
++
++	ethernet_phy: ethernet-phy@0 {
++		reg = <0>;
++	};
++};
++
++
++
++&sdhci0 {
++	bootph-all;
++	status = "okay";
++};
++
++&uart0 {
++	bootph-all;
++	status = "okay";
++};
++
++&usb0 {
++	status = "okay";
++	dr_mode = "host";
++			phy_type = "ulpi";
++	usb-phy = <&usb_phy0>;
++};
+
