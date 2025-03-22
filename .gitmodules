@@ -1,0 +1,3 @@
+[submodule "zynq_qmtech_xc720/docs/QMTECH_XC7Z020_STARTER_KIT_V01"]
+	path = zynq_qmtech_xc720/docs/QMTECH_XC7Z020_STARTER_KIT_V01
+	url = https://github.com/ChinaQMTECH/QMTECH_XC7Z020_STARTER_KIT_V01
